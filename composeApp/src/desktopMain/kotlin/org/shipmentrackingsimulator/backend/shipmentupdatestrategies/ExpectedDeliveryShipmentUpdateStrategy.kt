@@ -3,7 +3,7 @@ package backend.shipmentupdatestrategies
 import backend.TrackingSimulator
 import java.util.Date
 
-class NewExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
+class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
     override fun update(
         shipmentId: String,
         status: String,

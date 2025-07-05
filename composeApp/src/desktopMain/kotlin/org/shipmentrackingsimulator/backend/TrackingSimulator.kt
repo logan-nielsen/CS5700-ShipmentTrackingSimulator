@@ -1,6 +1,10 @@
 package backend
 
-import backend.shipmentupdatestrategies.OnlyStatusShipmentUpdateStrategy
+import backend.shipmentupdatestrategies.CreatedShipmentUpdateStrategy
+import backend.shipmentupdatestrategies.ExpectedDeliveryShipmentUpdateStrategy
+import backend.shipmentupdatestrategies.LocationShipmentUpdateStrategy
+import backend.shipmentupdatestrategies.NoteShipmentUpdateStrategy
+import backend.shipmentupdatestrategies.StatusShipmentUpdateStrategy
 import backend.shipmentupdatestrategies.ShipmentUpdateStrategy
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
@@ -11,17 +15,19 @@ import java.util.Date
 object TrackingSimulator {
     private val shipments = mutableListOf<Shipment>()
     private val shipmentUpdateStrategyMap = mapOf<String, ShipmentUpdateStrategy>(
-        "created" to TODO(),
-        "shipped" to TODO(),
-        "location" to TODO(),
-        "delivered" to OnlyStatusShipmentUpdateStrategy(),
-        "delayed" to TODO(),
-        "lost" to OnlyStatusShipmentUpdateStrategy(),
-        "cancelled" to OnlyStatusShipmentUpdateStrategy(),
-        "noteadded" to TODO(),
+        "created" to CreatedShipmentUpdateStrategy(),
+        "shipped" to ExpectedDeliveryShipmentUpdateStrategy(),
+        "location" to LocationShipmentUpdateStrategy(),
+        "delivered" to StatusShipmentUpdateStrategy(),
+        "delayed" to ExpectedDeliveryShipmentUpdateStrategy(),
+        "lost" to StatusShipmentUpdateStrategy(),
+        "cancelled" to StatusShipmentUpdateStrategy(),
+        "noteadded" to NoteShipmentUpdateStrategy(),
     )
 
-    fun findShipment(shipmentId: String): Shipment? {
+    fun findShipment(shipmentId: String?): Shipment? {
+        if (shipmentId == null) return null
+
         return shipments.find { it.id == shipmentId }
     }
 

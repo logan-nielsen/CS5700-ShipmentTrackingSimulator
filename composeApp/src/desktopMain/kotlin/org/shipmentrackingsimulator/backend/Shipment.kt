@@ -12,7 +12,7 @@ class Shipment(
         private set;
     private val notes = mutableListOf<String>()
     private val updateHistory = mutableListOf<ShippingUpdate>()
-    private val observers = mutableListOf<Observer>()
+    private val shipmentObservers = mutableListOf<ShipmentObserver>()
 
     fun getNotes(): List<String> {
         return notes.toList()
@@ -31,17 +31,17 @@ class Shipment(
         status = newStatus
     }
 
-    fun registerObserver(observer: Observer) {
-        observers.add(observer)
+    fun registerObserver(shipmentObserver: ShipmentObserver) {
+        shipmentObservers.add(shipmentObserver)
     }
 
-    fun removeObserver(observer: Observer) {
-        observers.remove(observer)
+    fun removeObserver(shipmentObserver: ShipmentObserver) {
+        shipmentObservers.remove(shipmentObserver)
     }
 
     fun notifyObservers() {
-        for (observer in observers) {
-            observer.update()
+        for (observer in shipmentObservers) {
+            observer.update(this)
         }
     }
 }
