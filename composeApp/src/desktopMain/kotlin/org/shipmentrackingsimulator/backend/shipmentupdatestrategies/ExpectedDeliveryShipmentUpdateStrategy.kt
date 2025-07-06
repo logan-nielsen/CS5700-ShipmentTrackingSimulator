@@ -1,6 +1,6 @@
-package backend.shipmentupdatestrategies
+package org.shipmentrackingsimulator.backend.shipmentupdatestrategies
 
-import backend.TrackingSimulator
+import org.shipmentrackingsimulator.backend.TrackingSimulator
 import java.util.Date
 
 class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {

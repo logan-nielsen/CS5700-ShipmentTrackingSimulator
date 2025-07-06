@@ -1,4 +1,4 @@
-package backend.shipmentupdatestrategies
+package org.shipmentrackingsimulator.backend.shipmentupdatestrategies
 
 import java.util.Date
 

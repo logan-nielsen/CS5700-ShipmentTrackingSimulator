@@ -1,11 +1,11 @@
-package backend
+package org.shipmentrackingsimulator.backend
 
-import backend.shipmentupdatestrategies.CreatedShipmentUpdateStrategy
-import backend.shipmentupdatestrategies.ExpectedDeliveryShipmentUpdateStrategy
-import backend.shipmentupdatestrategies.LocationShipmentUpdateStrategy
-import backend.shipmentupdatestrategies.NoteShipmentUpdateStrategy
-import backend.shipmentupdatestrategies.StatusShipmentUpdateStrategy
-import backend.shipmentupdatestrategies.ShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.CreatedShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.ExpectedDeliveryShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.LocationShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.NoteShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.StatusShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.ShipmentUpdateStrategy
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ object TrackingSimulator {
         "delivered" to StatusShipmentUpdateStrategy(),
         "delayed" to ExpectedDeliveryShipmentUpdateStrategy(),
         "lost" to StatusShipmentUpdateStrategy(),
-        "cancelled" to StatusShipmentUpdateStrategy(),
+        "canceled" to StatusShipmentUpdateStrategy(),
         "noteadded" to NoteShipmentUpdateStrategy(),
     )
 
@@ -37,10 +37,13 @@ object TrackingSimulator {
 
     suspend fun runSimulation() = coroutineScope {
         launch {
-            val lines = File("path/to/file.txt").readLines()
+            val lines = File("test.txt").readLines()
             lines.forEach { line ->
+                println(line)
                 val items = line.split(",")
-                val (updateType, shipmentId, timestampOfUpdate, otherInfo) = items
+                val (updateType, shipmentId, timestampOfUpdate) = items
+                val otherInfo = items.getOrNull(3)
+
                 val shipmentUpdateStrategy = shipmentUpdateStrategyMap[updateType]
                     ?: throw IllegalArgumentException("Invalid update type: $updateType")
 

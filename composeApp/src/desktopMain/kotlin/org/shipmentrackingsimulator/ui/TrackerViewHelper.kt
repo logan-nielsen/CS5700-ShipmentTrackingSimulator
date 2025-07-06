@@ -1,9 +1,9 @@
 package org.shipmentrackingsimulator.ui
 
 import androidx.compose.runtime.mutableStateOf
-import backend.Shipment
+import org.shipmentrackingsimulator.backend.Shipment
 import backend.ShipmentObserver
-import backend.TrackingSimulator
+import org.shipmentrackingsimulator.backend.TrackingSimulator
 import kotlin.collections.mutableListOf
 
 class TrackerViewHelper : ShipmentObserver {

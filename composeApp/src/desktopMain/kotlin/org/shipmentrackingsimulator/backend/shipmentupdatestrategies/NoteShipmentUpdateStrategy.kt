@@ -1,6 +1,6 @@
-package backend.shipmentupdatestrategies
+package org.shipmentrackingsimulator.backend.shipmentupdatestrategies
 
-import backend.TrackingSimulator
+import org.shipmentrackingsimulator.backend.TrackingSimulator
 import java.util.Date
 
 class NoteShipmentUpdateStrategy : ShipmentUpdateStrategy {
@@ -15,7 +15,6 @@ class NoteShipmentUpdateStrategy : ShipmentUpdateStrategy {
         val shipment = TrackingSimulator.findShipment(shipmentId)
         requireNotNull(shipment) { "Shipment with id $shipmentId does not exist" }
 
-        shipment.addUpdate(status, dateOfUpdate)
         shipment.addNote(otherInfo)
     }
 }

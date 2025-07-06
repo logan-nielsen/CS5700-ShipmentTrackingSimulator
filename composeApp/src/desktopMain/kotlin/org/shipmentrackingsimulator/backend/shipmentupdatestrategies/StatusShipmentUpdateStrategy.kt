@@ -1,9 +1,9 @@
-package backend.shipmentupdatestrategies
+package org.shipmentrackingsimulator.backend.shipmentupdatestrategies
 
-import backend.TrackingSimulator
+import org.shipmentrackingsimulator.backend.TrackingSimulator
 import java.util.Date
 
-class StatusShipmentUpdateStrategy : ShipmentUpdateStrategy  {
+class StatusShipmentUpdateStrategy : ShipmentUpdateStrategy {
     override fun update(
         shipmentId: String,
         status: String,
