@@ -28,9 +28,7 @@ fun App() {
         val trackerViewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
 
         LaunchedEffect(Unit) {
-            launch {
-                TrackingSimulator.runSimulation()
-            }
+            TrackingSimulator.runSimulation()
         }
 
         fun addTrackerViewHelper(shipmentID: String) {

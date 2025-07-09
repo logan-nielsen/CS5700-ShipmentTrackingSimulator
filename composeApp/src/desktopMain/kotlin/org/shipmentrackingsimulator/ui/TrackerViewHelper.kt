@@ -1,5 +1,6 @@
 package org.shipmentrackingsimulator.ui
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import org.shipmentrackingsimulator.backend.Shipment
 import backend.ShipmentObserver
@@ -15,9 +16,9 @@ class TrackerViewHelper : ShipmentObserver {
 
     val expectedShipmentDeliveryDate = mutableStateOf<String?>(null)
 
-    val shipmentNotes = mutableListOf<String>()
+    val shipmentNotes = mutableStateListOf<String>()
 
-    val shipmentUpdateHistory = mutableListOf<String>()
+    val shipmentUpdateHistory = mutableStateListOf<String>()
 
     fun trackShipmentID(id: String) {
         val shipment = TrackingSimulator.findShipment(id)
@@ -41,7 +42,7 @@ class TrackerViewHelper : ShipmentObserver {
         shipmentNotes.addAll(shipment.getNotes())
         shipmentUpdateHistory.clear()
         shipmentUpdateHistory.addAll(shipment.getUpdateHistory().map {
-            it.toString()
+            "Shipment went from ${it.previousStatus} to ${it.newStatus} at ${it.date}"
         })
     }
 }

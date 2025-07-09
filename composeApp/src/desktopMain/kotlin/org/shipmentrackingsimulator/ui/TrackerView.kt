@@ -20,12 +20,16 @@ fun TrackerView(helper: TrackerViewHelper) {
                     Text("Status: ${helper.shipmentStatus.value}")
                     Text("Current Location: ${helper.currentLocation.value}")
                     Text("Expected Delivery Date: ${helper.expectedShipmentDeliveryDate.value}")
+
                     Text("Notes:")
                     for (note in helper.shipmentNotes) {
                         Text(note)
                     }
+
                     Text("Update History:")
-                    for (update in helper.shipmentUpdateHistory) {}
+                    for (update in helper.shipmentUpdateHistory) {
+                        Text(update)
+                    }
                 }
             }
         }
