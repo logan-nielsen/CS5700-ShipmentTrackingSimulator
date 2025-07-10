@@ -31,6 +31,11 @@ class TrackerViewHelper : ShipmentObserver {
         shipment?.removeObserver(this)
 
         shipmentID.value = null
+        shipmentStatus.value = null
+        currentLocation.value = null
+        expectedShipmentDeliveryDate.value = null
+        shipmentNotes.clear()
+        shipmentUpdateHistory.clear()
     }
 
     override fun update(shipment: Shipment) {
