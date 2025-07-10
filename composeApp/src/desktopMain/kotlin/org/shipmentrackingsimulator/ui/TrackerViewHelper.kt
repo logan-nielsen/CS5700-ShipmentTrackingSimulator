@@ -19,11 +19,14 @@ class TrackerViewHelper : ShipmentObserver {
 
     val shipmentUpdateHistory = mutableStateListOf<String>()
 
-    fun trackShipmentID(id: String) {
+    fun trackShipmentID(id: String): Boolean {
         val shipment = TrackingSimulator.findShipment(id)
         if (shipment != null) {
             shipment.registerObserver(this)
             shipmentID.value = id
+            return true
+        } else {
+            return false
         }
     }
 

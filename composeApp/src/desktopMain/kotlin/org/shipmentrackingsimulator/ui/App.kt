@@ -39,9 +39,11 @@ fun App() {
             if (shipmentID.isEmpty()) return
 
             val trackerViewHelper = TrackerViewHelper()
-            trackerViewHelper.trackShipmentID(shipmentID)
-            trackerViewHelpers += trackerViewHelper
-            shipmentIDInput = ""
+            val success = trackerViewHelper.trackShipmentID(shipmentID)
+            if (success) {
+                trackerViewHelpers += trackerViewHelper
+                shipmentIDInput = ""
+            }
         }
 
         fun removeTrackerViewHelper(trackerViewHelper: TrackerViewHelper) {
