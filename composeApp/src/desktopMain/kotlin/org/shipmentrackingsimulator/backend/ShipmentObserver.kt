@@ -1,6 +1,4 @@
-package backend
-
-import org.shipmentrackingsimulator.backend.Shipment
+package org.shipmentrackingsimulator.backend
 
 interface ShipmentObserver {
     fun update(shipment: Shipment)

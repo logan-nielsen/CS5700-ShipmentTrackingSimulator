@@ -5,7 +5,7 @@ import java.util.Date
 interface ShipmentUpdateStrategy {
     fun update(
         shipmentId: String,
-        status: String,
+        updateType: String,
         dateOfUpdate: Date,
         otherInfo: String?
     )

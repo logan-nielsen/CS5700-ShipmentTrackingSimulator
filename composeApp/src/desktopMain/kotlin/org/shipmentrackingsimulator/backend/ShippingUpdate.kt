@@ -1,4 +1,4 @@
-package backend
+package org.shipmentrackingsimulator.backend
 
 import java.util.Date
 

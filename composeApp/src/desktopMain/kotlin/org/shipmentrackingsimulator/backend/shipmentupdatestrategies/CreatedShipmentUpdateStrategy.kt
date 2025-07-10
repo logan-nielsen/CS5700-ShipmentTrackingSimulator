@@ -7,10 +7,10 @@ import java.util.Date
 class CreatedShipmentUpdateStrategy : ShipmentUpdateStrategy {
     override fun update(
         shipmentId: String,
-        status: String,
+        updateType: String,
         dateOfUpdate: Date,
         otherInfo: String?
     ) {
-        TrackingSimulator.addShipment(Shipment(shipmentId, status))
+        TrackingSimulator.addShipment(Shipment(shipmentId, updateType))
     }
 }

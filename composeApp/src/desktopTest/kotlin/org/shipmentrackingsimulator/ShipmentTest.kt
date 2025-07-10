@@ -1,6 +1,6 @@
 package org.shipmentrackingsimulator
 
-import backend.ShipmentObserver
+import org.shipmentrackingsimulator.backend.ShipmentObserver
 import kotlin.test.Test
 import org.shipmentrackingsimulator.backend.Shipment
 import java.util.Date

@@ -35,27 +35,28 @@ object TrackingSimulator {
         shipments.add(shipment)
     }
 
-    suspend fun runSimulation() = coroutineScope {
-        launch {
-            val lines = File("test.txt").readLines()
-            lines.forEach { line ->
-                println(line)
-                val items = line.split(",")
-                val (updateType, shipmentId, timestampOfUpdate) = items
-                val otherInfo = items.getOrNull(3)
+    fun reset() {
+        shipments.clear()
+    }
 
-                val shipmentUpdateStrategy = shipmentUpdateStrategyMap[updateType]
-                    ?: throw IllegalArgumentException("Invalid update type: $updateType")
+    suspend fun runSimulation(updateDelay: Long = 1000L) = coroutineScope {
+        val lines = File("test.txt").readLines()
+        lines.forEach { line ->
+            val items = line.split(",")
+            val (updateType, shipmentId, timestampOfUpdate) = items
+            val otherInfo = items.getOrNull(3)
 
-                shipmentUpdateStrategy.update(
-                    shipmentId,
-                    updateType,
-                    Date(timestampOfUpdate.toLong()),
-                    otherInfo
-                )
+            val shipmentUpdateStrategy = shipmentUpdateStrategyMap[updateType]
+                ?: throw IllegalArgumentException("Invalid update type: $updateType")
 
-                delay(1000L)
-            }
+            shipmentUpdateStrategy.update(
+                shipmentId,
+                updateType,
+                Date(timestampOfUpdate.toLong()),
+                otherInfo
+            )
+
+            delay(updateDelay)
         }
     }
 }

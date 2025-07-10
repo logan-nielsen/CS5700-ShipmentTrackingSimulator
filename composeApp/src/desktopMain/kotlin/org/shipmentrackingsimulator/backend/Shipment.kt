@@ -1,7 +1,5 @@
 package org.shipmentrackingsimulator.backend
 
-import backend.ShipmentObserver
-import backend.ShippingUpdate
 import java.util.Date
 
 class Shipment(

@@ -6,7 +6,7 @@ import java.util.Date
 class NoteShipmentUpdateStrategy : ShipmentUpdateStrategy {
     override fun update(
         shipmentId: String,
-        status: String,
+        updateType: String,
         dateOfUpdate: Date,
         otherInfo: String?
     ) {

@@ -6,7 +6,7 @@ import java.util.Date
 class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
     override fun update(
         shipmentId: String,
-        status: String,
+        updateType: String,
         dateOfUpdate: Date,
         otherInfo: String?
     ) {
@@ -15,7 +15,7 @@ class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
         val shipment = TrackingSimulator.findShipment(shipmentId)
         requireNotNull(shipment) { "Shipment with id $shipmentId does not exist" }
 
-        shipment.addUpdate(status, dateOfUpdate)
+        shipment.addUpdate(updateType, dateOfUpdate)
         shipment.expectedDeliveryDate = Date(otherInfo.toLong())
     }
 }
