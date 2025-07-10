@@ -29,6 +29,7 @@ kotlin {
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation("org.jetbrains.compose.material:material-icons-extended:1.0.0")
         }
     }
 }

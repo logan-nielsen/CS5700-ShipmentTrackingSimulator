@@ -29,7 +29,7 @@ class TrackerViewHelper : ShipmentObserver {
 
     fun stopTracking() {
         val shipment = TrackingSimulator.findShipment(shipmentID.value)
-        shipment?.registerObserver(this)
+        shipment?.removeObserver(this)
 
         shipmentID.value = null
     }

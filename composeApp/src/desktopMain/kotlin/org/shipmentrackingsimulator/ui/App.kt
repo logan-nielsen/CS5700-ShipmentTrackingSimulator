@@ -17,7 +17,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.shipmentrackingsimulator.backend.TrackingSimulator
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -38,6 +37,11 @@ fun App() {
             trackerViewHelper.trackShipmentID(shipmentID)
             trackerViewHelpers += trackerViewHelper
             shipmentIDInput = ""
+        }
+
+        fun removeTrackerViewHelper(trackerViewHelper: TrackerViewHelper) {
+            trackerViewHelper.stopTracking()
+            trackerViewHelpers -= trackerViewHelper
         }
 
         Column {
@@ -69,7 +73,9 @@ fun App() {
                             .padding(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        TrackerView(trackerViewHelper)
+                        TrackerView(trackerViewHelper) {
+                            removeTrackerViewHelper(trackerViewHelper)
+                        }
                     }
                 }
             }
