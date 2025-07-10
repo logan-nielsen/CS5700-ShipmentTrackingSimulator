@@ -2,10 +2,9 @@ package org.shipmentrackingsimulator.ui
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import org.shipmentrackingsimulator.backend.Shipment
 import backend.ShipmentObserver
+import org.shipmentrackingsimulator.backend.Shipment
 import org.shipmentrackingsimulator.backend.TrackingSimulator
-import kotlin.collections.mutableListOf
 
 class TrackerViewHelper : ShipmentObserver {
     val shipmentID = mutableStateOf<String?>(null)
