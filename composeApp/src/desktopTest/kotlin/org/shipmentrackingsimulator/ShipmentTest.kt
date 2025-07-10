@@ -1,9 +1,9 @@
 package org.shipmentrackingsimulator
 
-import org.shipmentrackingsimulator.backend.ShipmentObserver
-import kotlin.test.Test
 import org.shipmentrackingsimulator.backend.Shipment
+import org.shipmentrackingsimulator.backend.ShipmentObserver
 import java.util.Date
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue

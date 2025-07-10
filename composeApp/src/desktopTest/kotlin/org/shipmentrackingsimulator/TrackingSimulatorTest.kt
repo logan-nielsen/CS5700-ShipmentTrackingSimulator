@@ -1,14 +1,12 @@
 package org.shipmentrackingsimulator
 
 import kotlinx.coroutines.async
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runTest
-import kotlin.test.Test
-import org.shipmentrackingsimulator.backend.TrackingSimulator
 import org.shipmentrackingsimulator.backend.Shipment
-import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.CreatedShipmentUpdateStrategy
+import org.shipmentrackingsimulator.backend.TrackingSimulator
 import java.util.Date
 import kotlin.test.BeforeTest
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull

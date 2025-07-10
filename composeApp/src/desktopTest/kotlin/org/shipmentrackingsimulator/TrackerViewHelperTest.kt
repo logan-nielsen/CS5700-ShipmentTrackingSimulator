@@ -1,13 +1,13 @@
 package org.shipmentrackingsimulator
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
-import kotlin.test.assertNull
 import org.shipmentrackingsimulator.backend.Shipment
 import org.shipmentrackingsimulator.backend.TrackingSimulator
 import org.shipmentrackingsimulator.ui.TrackerViewHelper
 import java.util.Date
 import kotlin.test.BeforeTest
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
 
 class TrackerViewHelperTest {
     @BeforeTest
@@ -30,6 +30,30 @@ class TrackerViewHelperTest {
     }
 
     @Test
+    fun testTrackNonExistentShipment() {
+        val helper = TrackerViewHelper()
+        helper.trackShipmentID("NONEXISTENT")
+
+        assertNull(helper.shipmentID.value)
+        assertNull(helper.shipmentStatus.value)
+        assertNull(helper.currentLocation.value)
+        assertNull(helper.expectedShipmentDeliveryDate.value)
+    }
+
+    @Test
+    fun testTrackShipmentWithExpectedDeliveryDate() {
+        val shipment = Shipment("TEST123", "created")
+        val expectedDate = Date()
+        shipment.expectedDeliveryDate = expectedDate
+        TrackingSimulator.addShipment(shipment)
+
+        val helper = TrackerViewHelper()
+        helper.trackShipmentID("TEST123")
+
+        assertEquals(expectedDate.toString(), helper.expectedShipmentDeliveryDate.value)
+    }
+
+    @Test
     fun testStopTracking() {
         val shipment = Shipment("TEST123", "created")
         TrackingSimulator.addShipment(shipment)
@@ -47,6 +71,17 @@ class TrackerViewHelperTest {
     }
 
     @Test
+    fun testStopTrackingNonExistentShipment() {
+        val helper = TrackerViewHelper()
+        helper.stopTracking()
+
+        assertNull(helper.shipmentID.value)
+        assertNull(helper.shipmentStatus.value)
+        assertNull(helper.currentLocation.value)
+        assertNull(helper.expectedShipmentDeliveryDate.value)
+    }
+
+    @Test
     fun testShipmentUpdates() {
         val shipment = Shipment("TEST123", "created")
         TrackingSimulator.addShipment(shipment)
@@ -60,6 +95,7 @@ class TrackerViewHelperTest {
         shipment.addUpdate("shipped", Date())
         shipment.addUpdate("delivered", Date())
 
+        assertEquals("delivered", helper.shipmentStatus.value)
         assertEquals("New York", helper.currentLocation.value)
         assertEquals(2, helper.shipmentNotes.size)
         assertEquals("First note", helper.shipmentNotes[0])
