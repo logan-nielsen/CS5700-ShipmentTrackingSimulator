@@ -42,7 +42,7 @@ class Shipment(
     }
 
     fun addUpdate(newStatus: String, date: Date) {
-        updateHistory.add(ShippingUpdate(newStatus, status, date))
+        updateHistory.add(ShippingUpdate(status, newStatus, date))
         status = newStatus
         this.notifyObservers()
     }
