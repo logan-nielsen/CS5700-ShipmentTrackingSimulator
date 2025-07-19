@@ -1,6 +1,7 @@
 package org.shipmentrackingsimulator
 
 import org.shipmentrackingsimulator.shipments.Shipment
+import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import java.util.Date
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -10,7 +11,9 @@ import kotlin.test.assertTrue
 class ShipmentTest {
     @Test
     fun testShipmentInitialization() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
+
         assertEquals("TEST123", shipment.id)
         assertEquals("created", shipment.status)
         assertNull(shipment.expectedDeliveryDate)
@@ -21,7 +24,9 @@ class ShipmentTest {
 
     @Test
     fun testCurrentLocation() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
+
         assertNull(shipment.currentLocation)
 
         shipment.currentLocation = "New York"
@@ -33,7 +38,9 @@ class ShipmentTest {
 
     @Test
     fun testAddNotes() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
+
         shipment.addNote("First note")
         shipment.addNote("Second note")
         assertEquals(2, shipment.getNotes().size)
@@ -48,7 +55,8 @@ class ShipmentTest {
 
     @Test
     fun testStatusUpdates() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
         val date1 = Date()
         val date2 = Date(date1.time + 1000)
         val date3 = Date(date2.time + 1000)
@@ -68,7 +76,8 @@ class ShipmentTest {
     fun testObservers() {
         var count1 = 0
         var count2 = 0
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
 
         val observer1 = object : ShipmentObserver {
             override fun update(shipment: Shipment) {

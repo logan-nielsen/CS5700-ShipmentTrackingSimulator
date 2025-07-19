@@ -1,7 +1,7 @@
 package org.shipmentrackingsimulator
 
 import org.shipmentrackingsimulator.shipments.Shipment
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import org.shipmentrackingsimulator.ui.TrackerViewHelper
 import java.util.Date
 import kotlin.test.BeforeTest
@@ -17,7 +17,8 @@ class TrackerViewHelperTest {
 
     @Test
     fun testTrackShipment() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
         ShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
@@ -42,7 +43,8 @@ class TrackerViewHelperTest {
 
     @Test
     fun testTrackShipmentWithExpectedDeliveryDate() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
         val expectedDate = Date()
         shipment.expectedDeliveryDate = expectedDate
         ShipmentTracker.addShipment(shipment)
@@ -55,7 +57,8 @@ class TrackerViewHelperTest {
 
     @Test
     fun testStopTracking() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
         ShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
@@ -83,7 +86,8 @@ class TrackerViewHelperTest {
 
     @Test
     fun testShipmentUpdates() {
-        val shipment = Shipment("TEST123", "created")
+        val shipmentFactory = ShipmentFactory()
+        val shipment = shipmentFactory.create("TEST123", "created", "standard")
         ShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()

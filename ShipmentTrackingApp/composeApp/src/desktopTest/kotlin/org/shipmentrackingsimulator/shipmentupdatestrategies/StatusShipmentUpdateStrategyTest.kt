@@ -1,7 +1,8 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
+import org.shipmentrackingsimulator.ShipmentTracker
 import org.shipmentrackingsimulator.shipments.Shipment
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -18,7 +19,8 @@ class StatusShipmentUpdateStrategyTest {
 
     @Test
     fun testStatusShipmentStrategy() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = StatusShipmentUpdateStrategy()
         strategy.update("TEST123", "status", Date(), "shipped")
@@ -34,7 +36,8 @@ class StatusShipmentUpdateStrategyTest {
 
     @Test
     fun testStatusShipmentStrategyInvalidShipmentID() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = StatusShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {

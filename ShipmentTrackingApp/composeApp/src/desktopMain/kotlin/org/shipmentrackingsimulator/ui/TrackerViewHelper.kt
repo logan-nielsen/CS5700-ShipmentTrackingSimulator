@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.ShipmentObserver
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.ShipmentTracker
 
 class TrackerViewHelper : ShipmentObserver {
     val shipmentID = mutableStateOf<String?>(null)

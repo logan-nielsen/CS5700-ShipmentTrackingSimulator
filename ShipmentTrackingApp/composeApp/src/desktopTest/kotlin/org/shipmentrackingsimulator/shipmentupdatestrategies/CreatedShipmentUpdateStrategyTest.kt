@@ -1,6 +1,6 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.ShipmentTracker
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -17,7 +17,7 @@ class CreatedShipmentUpdateStrategyTest {
     @Test
     fun testCreatedShipmentStrategy() {
         val strategy = CreatedShipmentUpdateStrategy()
-        strategy.update("TEST123", "created", Date(1652718051403), null)
+        strategy.update("TEST123", "created", Date(1652718051403), "standard")
 
         val shipment = ShipmentTracker.findShipment("TEST123")
         assertNotNull(shipment)

@@ -22,7 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.ShipmentTracker
 
 @Composable
 @Preview
@@ -32,7 +32,7 @@ fun App() {
         val trackerViewHelpers = remember { mutableStateListOf<TrackerViewHelper>() }
 
         LaunchedEffect(Unit) {
-            ShipmentTracker.runSimulation()
+            ShipmentTracker.run()
         }
 
         fun addTrackerViewHelper(shipmentID: String) {

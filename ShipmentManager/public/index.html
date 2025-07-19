@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Input Form Example</title>
+</head>
+<body>
+  <h1>Update Shipment</h1>
+
+  <input type="text" id="update_shipment_input" placeholder="Type something..." />
+  <button onclick="submitMessage()">Send to Server</button>
+
+  <script>
+    async function submitMessage() {
+      const input = document.getElementById('update_shipment_input').value;
+      await fetch('http://localhost:8080/api/updateShipment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain'
+        },
+        body: input,
+      });
+    }
+  </script>
+</body>
+</html>

@@ -22,14 +22,16 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation("io.ktor:ktor-server-core:2.3.4")
+            implementation("io.ktor:ktor-server-netty:2.3.4")
+            implementation ("ch.qos.logback:logback-classic:1.2.3")
+            implementation("io.ktor:ktor-server-cors:2.3.4")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.coroutinesSwing)
             implementation("org.jetbrains.compose.material:material-icons-extended:1.0.0")
         }
     }

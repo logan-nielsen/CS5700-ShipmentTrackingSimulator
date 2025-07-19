@@ -1,7 +1,8 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
+import org.shipmentrackingsimulator.ShipmentTracker
 import org.shipmentrackingsimulator.shipments.Shipment
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -18,7 +19,8 @@ class NoteShipmentUpdateStrategyTest {
 
     @Test
     fun testNoteShipmentStrategy() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         strategy.update("TEST123", "note", Date(), "test note")
@@ -35,7 +37,8 @@ class NoteShipmentUpdateStrategyTest {
 
     @Test
     fun testNoteShipmentStrategyInvalidShipmentID() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {
@@ -45,7 +48,8 @@ class NoteShipmentUpdateStrategyTest {
 
     @Test
     fun testNoteShipmentStrategyMissingOtherInfo() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {

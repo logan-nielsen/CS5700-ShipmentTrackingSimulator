@@ -1,7 +1,8 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
+import org.shipmentrackingsimulator.ShipmentTracker
 import org.shipmentrackingsimulator.shipments.Shipment
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -18,7 +19,8 @@ class ExpectedDeliveryShipmentUpdateStrategyTest {
 
     @Test
     fun testExpectedDeliveryShipmentStrategy() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         var strategy = ExpectedDeliveryShipmentUpdateStrategy()
         strategy.update("TEST123", "shipped", Date(1652712855468), "1652713940874")
@@ -45,7 +47,8 @@ class ExpectedDeliveryShipmentUpdateStrategyTest {
 
     @Test
     fun testExpectedDeliveryShipmentStrategyInvalidDate() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
         assertFailsWith<NumberFormatException> {
@@ -55,7 +58,8 @@ class ExpectedDeliveryShipmentUpdateStrategyTest {
 
     @Test
     fun testExpectedDeliveryShipmentStrategyInvalidShipmentID() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {
@@ -65,7 +69,8 @@ class ExpectedDeliveryShipmentUpdateStrategyTest {
 
     @Test
     fun testExpectedDeliveryShipmentStrategyMissingOtherInfo() {
-        ShipmentTracker.addShipment(Shipment("TEST123", "created"))
+        val shipmentFactory = ShipmentFactory()
+        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {

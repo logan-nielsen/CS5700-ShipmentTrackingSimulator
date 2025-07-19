@@ -1,6 +1,6 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.shipmenttrackers.ShipmentTracker
+import org.shipmentrackingsimulator.ShipmentTracker
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
 import java.util.Date
 
