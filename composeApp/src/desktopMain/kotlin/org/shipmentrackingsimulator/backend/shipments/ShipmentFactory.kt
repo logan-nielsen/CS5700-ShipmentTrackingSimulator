@@ -2,14 +2,14 @@ package org.shipmentrackingsimulator.backend.shipments
 
 class ShipmentFactory {
     private val shipmentTypeMap = mapOf(
-        "Standard" to ::StandardShipment,
-        "Express" to ::ExpressShipment,
-        "Bulk" to ::BulkShipment,
-        "Overnight" to ::OvernightShipment,
+        "standard" to ::StandardShipment,
+        "express" to ::ExpressShipment,
+        "bulk" to ::BulkShipment,
+        "overnight" to ::OvernightShipment,
     )
 
-    fun create(id: String, status: String, tpe: String): Shipment {
-        return shipmentTypeMap[tpe]?.invoke(id, status)
-            ?: throw Exception("Unknown shipment type $tpe")
+    fun create(id: String, status: String, type: String): Shipment {
+        return shipmentTypeMap[type]?.invoke(id, status)
+            ?: throw Exception("Unknown shipment type $type")
     }
 }
