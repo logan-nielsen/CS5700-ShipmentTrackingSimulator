@@ -2,6 +2,7 @@ package org.shipmentrackingsimulator.backend
 
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
+import org.shipmentrackingsimulator.backend.shipments.Shipment
 import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.CreatedShipmentUpdateStrategy
 import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.ExpectedDeliveryShipmentUpdateStrategy
 import org.shipmentrackingsimulator.backend.shipmentupdatestrategies.LocationShipmentUpdateStrategy

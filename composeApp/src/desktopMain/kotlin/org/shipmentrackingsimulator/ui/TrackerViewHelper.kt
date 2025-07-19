@@ -2,7 +2,7 @@ package org.shipmentrackingsimulator.ui
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import org.shipmentrackingsimulator.backend.Shipment
+import org.shipmentrackingsimulator.backend.shipments.Shipment
 import org.shipmentrackingsimulator.backend.ShipmentObserver
 import org.shipmentrackingsimulator.backend.TrackingSimulator
 

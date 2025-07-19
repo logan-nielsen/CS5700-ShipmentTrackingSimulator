@@ -1,6 +1,6 @@
 package org.shipmentrackingsimulator
 
-import org.shipmentrackingsimulator.backend.Shipment
+import org.shipmentrackingsimulator.backend.shipments.Shipment
 import org.shipmentrackingsimulator.backend.TrackingSimulator
 import org.shipmentrackingsimulator.ui.TrackerViewHelper
 import java.util.Date

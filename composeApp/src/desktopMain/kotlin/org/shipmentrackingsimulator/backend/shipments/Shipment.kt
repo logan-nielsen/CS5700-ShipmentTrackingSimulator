@@ -1,8 +1,10 @@
-package org.shipmentrackingsimulator.backend
+package org.shipmentrackingsimulator.backend.shipments
 
+import org.shipmentrackingsimulator.backend.ShipmentObserver
+import org.shipmentrackingsimulator.backend.ShippingUpdate
 import java.util.Date
 
-class Shipment(
+abstract class Shipment(
     val id: String,
     status: String,
 ) {
@@ -21,6 +23,8 @@ class Shipment(
     private val notes = mutableListOf<String>()
     private val updateHistory = mutableListOf<ShippingUpdate>()
     private val shipmentObservers = mutableListOf<ShipmentObserver>()
+    var creationDate = Date()
+        private set;
 
     init {
         this.notifyObservers()
@@ -59,4 +63,6 @@ class Shipment(
             observer.update(this)
         }
     }
+
+    abstract fun validateDeliveryDate(): Boolean
 }

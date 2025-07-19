@@ -2,7 +2,7 @@ package org.shipmentrackingsimulator
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.test.runTest
-import org.shipmentrackingsimulator.backend.Shipment
+import org.shipmentrackingsimulator.backend.shipments.Shipment
 import org.shipmentrackingsimulator.backend.TrackingSimulator
 import java.util.Date
 import kotlin.test.BeforeTest
