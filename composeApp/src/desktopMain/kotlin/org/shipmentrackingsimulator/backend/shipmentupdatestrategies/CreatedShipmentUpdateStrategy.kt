@@ -1,7 +1,7 @@
 package org.shipmentrackingsimulator.backend.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.backend.shipments.Shipment
 import org.shipmentrackingsimulator.backend.TrackingSimulator
+import org.shipmentrackingsimulator.backend.shipments.ShipmentFactory
 import java.util.Date
 
 class CreatedShipmentUpdateStrategy : ShipmentUpdateStrategy {
@@ -11,6 +11,9 @@ class CreatedShipmentUpdateStrategy : ShipmentUpdateStrategy {
         dateOfUpdate: Date,
         otherInfo: String?
     ) {
-        TrackingSimulator.addShipment(Shipment(shipmentId, updateType))
+        requireNotNull(otherInfo) { "otherInfo must not be null" }
+
+        val shipmentFactory = ShipmentFactory()
+        TrackingSimulator.addShipment(shipmentFactory.create(shipmentId, updateType, otherInfo))
     }
 }
