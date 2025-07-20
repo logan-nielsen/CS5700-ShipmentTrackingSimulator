@@ -1,7 +1,7 @@
 package org.shipmentrackingsimulator
 
-import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 import org.shipmentrackingsimulator.ui.TrackerViewHelper
 import java.util.Date
 import kotlin.test.BeforeTest
@@ -12,14 +12,14 @@ import kotlin.test.assertNull
 class TrackerViewHelperTest {
     @BeforeTest
     fun resetTrackingSimulator() {
-        ShipmentTracker.reset()
+        WebShipmentTracker.reset()
     }
 
     @Test
     fun testTrackShipment() {
         val shipmentFactory = ShipmentFactory()
         val shipment = shipmentFactory.create("TEST123", "created", "standard")
-        ShipmentTracker.addShipment(shipment)
+        WebShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
         helper.trackShipmentID("TEST123")
@@ -47,7 +47,7 @@ class TrackerViewHelperTest {
         val shipment = shipmentFactory.create("TEST123", "created", "standard")
         val expectedDate = Date()
         shipment.expectedDeliveryDate = expectedDate
-        ShipmentTracker.addShipment(shipment)
+        WebShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
         helper.trackShipmentID("TEST123")
@@ -59,7 +59,7 @@ class TrackerViewHelperTest {
     fun testStopTracking() {
         val shipmentFactory = ShipmentFactory()
         val shipment = shipmentFactory.create("TEST123", "created", "standard")
-        ShipmentTracker.addShipment(shipment)
+        WebShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
         helper.trackShipmentID("TEST123")
@@ -88,7 +88,7 @@ class TrackerViewHelperTest {
     fun testShipmentUpdates() {
         val shipmentFactory = ShipmentFactory()
         val shipment = shipmentFactory.create("TEST123", "created", "standard")
-        ShipmentTracker.addShipment(shipment)
+        WebShipmentTracker.addShipment(shipment)
 
         val helper = TrackerViewHelper()
         helper.trackShipmentID("TEST123")

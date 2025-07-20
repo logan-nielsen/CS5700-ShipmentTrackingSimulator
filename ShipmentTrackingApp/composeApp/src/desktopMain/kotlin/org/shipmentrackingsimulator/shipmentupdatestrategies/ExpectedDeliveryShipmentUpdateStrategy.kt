@@ -1,6 +1,7 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
+import java.text.SimpleDateFormat
 import java.util.Date
 
 class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
@@ -12,10 +13,12 @@ class ExpectedDeliveryShipmentUpdateStrategy : ShipmentUpdateStrategy {
     ) {
         requireNotNull(otherInfo) { "otherInfo must not be null" }
 
-        val shipment = ShipmentTracker.findShipment(shipmentId)
+        val shipment = WebShipmentTracker.findShipment(shipmentId)
         requireNotNull(shipment) { "Shipment with id $shipmentId does not exist" }
 
         shipment.addUpdate(updateType, dateOfUpdate)
-        shipment.expectedDeliveryDate = Date(otherInfo.toLong())
+
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
+        shipment.expectedDeliveryDate = dateFormatter.parse(otherInfo)
     }
 }

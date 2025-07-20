@@ -1,6 +1,6 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 import java.util.Date
 
 class StatusShipmentUpdateStrategy : ShipmentUpdateStrategy {
@@ -10,7 +10,7 @@ class StatusShipmentUpdateStrategy : ShipmentUpdateStrategy {
         dateOfUpdate: Date,
         otherInfo: String?
     ) {
-        val shipment = ShipmentTracker.findShipment(shipmentId)
+        val shipment = WebShipmentTracker.findShipment(shipmentId)
         requireNotNull(shipment) { "Shipment with id $shipmentId does not exist" }
 
         shipment.addUpdate(updateType, dateOfUpdate)

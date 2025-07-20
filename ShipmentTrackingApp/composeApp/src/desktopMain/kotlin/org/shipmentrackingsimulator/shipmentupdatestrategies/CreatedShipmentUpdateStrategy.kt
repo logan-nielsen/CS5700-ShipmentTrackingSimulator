@@ -1,7 +1,7 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 import java.util.Date
 
 class CreatedShipmentUpdateStrategy : ShipmentUpdateStrategy {
@@ -14,6 +14,6 @@ class CreatedShipmentUpdateStrategy : ShipmentUpdateStrategy {
         requireNotNull(otherInfo) { "otherInfo must not be null" }
 
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create(shipmentId, updateType, otherInfo))
+        WebShipmentTracker.addShipment(shipmentFactory.create(shipmentId, updateType, otherInfo, dateOfUpdate))
     }
 }

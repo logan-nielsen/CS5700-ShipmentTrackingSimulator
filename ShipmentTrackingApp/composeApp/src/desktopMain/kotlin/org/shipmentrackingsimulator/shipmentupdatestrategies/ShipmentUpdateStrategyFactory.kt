@@ -14,6 +14,6 @@ class ShipmentUpdateStrategyFactory {
 
     fun create(updateType: String): ShipmentUpdateStrategy {
         return shipmentUpdateStrategyMap[updateType]
-            ?: throw Exception("Unknown update type $updateType")
+            ?: throw IllegalArgumentException("Unknown update type $updateType")
     }
 }

@@ -1,9 +1,10 @@
 package org.shipmentrackingsimulator.shipments
 
 import java.util.Calendar
+import java.util.Date
 
-class ExpressShipment(id: String, status: String): Shipment(id, status) {
-    private val maxDeliveryDays = 2
+class ExpressShipment(id: String, status: String, creationDate: Date): Shipment(id, status, creationDate) {
+    private val maxDeliveryDays = 3
 
     override fun validateDeliveryDate(): Boolean {
         expectedDeliveryDate.let {
@@ -17,7 +18,7 @@ class ExpressShipment(id: String, status: String): Shipment(id, status) {
             if (it <= maxDate) {
                 return true
             } else {
-                addNote("Shipment expected later than the maximum $maxDeliveryDays days waiting time for standard shipments")
+                addNote("Shipment expected later than the maximum $maxDeliveryDays days waiting time for express shipments")
                 return false
             }
         }

@@ -1,8 +1,7 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
-import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -14,18 +13,18 @@ import kotlin.test.assertNull
 class StatusShipmentUpdateStrategyTest {
     @BeforeTest
     fun resetTrackingSimulator() {
-        ShipmentTracker.reset()
+        WebShipmentTracker.reset()
     }
 
     @Test
     fun testStatusShipmentStrategy() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = StatusShipmentUpdateStrategy()
         strategy.update("TEST123", "status", Date(), "shipped")
 
-        val shipment = ShipmentTracker.findShipment("TEST123")
+        val shipment = WebShipmentTracker.findShipment("TEST123")
         assertNotNull(shipment)
         assertEquals("status", shipment.status)
         assertNull(shipment.currentLocation)
@@ -37,7 +36,7 @@ class StatusShipmentUpdateStrategyTest {
     @Test
     fun testStatusShipmentStrategyInvalidShipmentID() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = StatusShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {

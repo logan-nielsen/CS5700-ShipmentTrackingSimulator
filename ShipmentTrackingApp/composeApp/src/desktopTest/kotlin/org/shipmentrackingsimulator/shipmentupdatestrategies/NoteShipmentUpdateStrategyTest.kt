@@ -1,8 +1,7 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
-import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -14,18 +13,18 @@ import kotlin.test.assertNull
 class NoteShipmentUpdateStrategyTest {
     @BeforeTest
     fun resetTrackingSimulator() {
-        ShipmentTracker.reset()
+        WebShipmentTracker.reset()
     }
 
     @Test
     fun testNoteShipmentStrategy() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         strategy.update("TEST123", "note", Date(), "test note")
 
-        val shipment = ShipmentTracker.findShipment("TEST123")
+        val shipment = WebShipmentTracker.findShipment("TEST123")
         assertNotNull(shipment)
         assertEquals("created", shipment.status)
         assertNull(shipment.currentLocation)
@@ -38,7 +37,7 @@ class NoteShipmentUpdateStrategyTest {
     @Test
     fun testNoteShipmentStrategyInvalidShipmentID() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {
@@ -49,7 +48,7 @@ class NoteShipmentUpdateStrategyTest {
     @Test
     fun testNoteShipmentStrategyMissingOtherInfo() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = NoteShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {

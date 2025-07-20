@@ -2,9 +2,9 @@ package org.shipmentrackingsimulator.ui
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.ShipmentObserver
-import org.shipmentrackingsimulator.ShipmentTracker
+import org.shipmentrackingsimulator.shipments.Shipment
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
 
 class TrackerViewHelper : ShipmentObserver {
     val shipmentID = mutableStateOf<String?>(null)
@@ -20,7 +20,7 @@ class TrackerViewHelper : ShipmentObserver {
     val shipmentUpdateHistory = mutableStateListOf<String>()
 
     fun trackShipmentID(id: String): Boolean {
-        val shipment = ShipmentTracker.findShipment(id)
+        val shipment = WebShipmentTracker.findShipment(id)
         if (shipment != null) {
             shipment.registerObserver(this)
             shipmentID.value = id
@@ -31,7 +31,7 @@ class TrackerViewHelper : ShipmentObserver {
     }
 
     fun stopTracking() {
-        val shipment = ShipmentTracker.findShipment(shipmentID.value)
+        val shipment = WebShipmentTracker.findShipment(shipmentID.value)
         shipment?.removeObserver(this)
 
         shipmentID.value = null

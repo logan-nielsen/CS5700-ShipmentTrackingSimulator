@@ -1,5 +1,7 @@
 package org.shipmentrackingsimulator.shipments
 
+import java.util.Date
+
 class ShipmentFactory {
     private val shipmentTypeMap = mapOf(
         "standard" to ::StandardShipment,
@@ -8,8 +10,8 @@ class ShipmentFactory {
         "overnight" to ::OvernightShipment,
     )
 
-    fun create(id: String, status: String, type: String): Shipment {
-        return shipmentTypeMap[type]?.invoke(id, status)
-            ?: throw Exception("Unknown shipment type $type")
+    fun create(id: String, status: String, type: String, creationDate: Date = Date()): Shipment {
+        return shipmentTypeMap[type]?.invoke(id, status, creationDate)
+            ?: throw IllegalArgumentException("Unknown shipment type $type")
     }
 }

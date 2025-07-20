@@ -7,10 +7,12 @@ import java.util.Date
 abstract class Shipment(
     val id: String,
     status: String,
+    creationDate: Date,
 ) {
     var expectedDeliveryDate: Date? = null
         set(value) {
             field = value
+            this.validateDeliveryDate()
             this.notifyObservers()
         }
     var currentLocation: String? = null
@@ -19,12 +21,12 @@ abstract class Shipment(
             this.notifyObservers()
         }
     var status: String = status
-        private set;
+        private set
     private val notes = mutableListOf<String>()
     private val updateHistory = mutableListOf<ShippingUpdate>()
     private val shipmentObservers = mutableListOf<ShipmentObserver>()
-    var creationDate = Date()
-        private set;
+    var creationDate = creationDate
+        private set
 
     init {
         this.notifyObservers()

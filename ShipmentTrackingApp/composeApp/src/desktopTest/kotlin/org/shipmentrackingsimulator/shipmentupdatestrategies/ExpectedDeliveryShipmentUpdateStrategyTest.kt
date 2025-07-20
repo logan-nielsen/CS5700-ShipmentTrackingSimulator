@@ -1,8 +1,9 @@
 package org.shipmentrackingsimulator.shipmentupdatestrategies
 
-import org.shipmentrackingsimulator.ShipmentTracker
-import org.shipmentrackingsimulator.shipments.Shipment
 import org.shipmentrackingsimulator.shipments.ShipmentFactory
+import org.shipmentrackingsimulator.shipmenttrackers.WebShipmentTracker
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -14,32 +15,37 @@ import kotlin.test.assertNull
 class ExpectedDeliveryShipmentUpdateStrategyTest {
     @BeforeTest
     fun resetTrackingSimulator() {
-        ShipmentTracker.reset()
+        WebShipmentTracker.reset()
     }
 
     @Test
     fun testExpectedDeliveryShipmentStrategy() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd")
+        val deliveryDate = dateFormatter.parse("2025-01-01")
 
         var strategy = ExpectedDeliveryShipmentUpdateStrategy()
-        strategy.update("TEST123", "shipped", Date(1652712855468), "1652713940874")
+        strategy.update("TEST123", "shipped", Date(), "2025-01-01")
 
-        var shipment = ShipmentTracker.findShipment("TEST123")
+        var shipment = WebShipmentTracker.findShipment("TEST123")
         assertNotNull(shipment)
         assertEquals("shipped", shipment.status)
-        assertEquals(Date(1652713940874), shipment.expectedDeliveryDate)
+        assertEquals(deliveryDate, shipment.expectedDeliveryDate)
         assertNull(shipment.currentLocation)
         assertEquals(0, shipment.getNotes().size)
         assertEquals(1, shipment.getUpdateHistory().size)
 
-        strategy = ExpectedDeliveryShipmentUpdateStrategy()
-        strategy.update("TEST123", "delayed", Date(1652712855468), "1652718051403")
+        val delayedDate = dateFormatter.parse("2025-02-01")
 
-        shipment = ShipmentTracker.findShipment("TEST123")
+        strategy = ExpectedDeliveryShipmentUpdateStrategy()
+        strategy.update("TEST123", "delayed", Date(), "2025-02-01")
+
+        shipment = WebShipmentTracker.findShipment("TEST123")
         assertNotNull(shipment)
         assertEquals("delayed", shipment.status)
-        assertEquals(Date(1652718051403), shipment.expectedDeliveryDate)
+        assertEquals(delayedDate, shipment.expectedDeliveryDate)
         assertNull(shipment.currentLocation)
         assertEquals(0, shipment.getNotes().size)
         assertEquals(2, shipment.getUpdateHistory().size)
@@ -48,33 +54,33 @@ class ExpectedDeliveryShipmentUpdateStrategyTest {
     @Test
     fun testExpectedDeliveryShipmentStrategyInvalidDate() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
-        assertFailsWith<NumberFormatException> {
-            strategy.update("TEST123", "shipped", Date(1652712855468), "INVALID")
+        assertFailsWith<ParseException> {
+            strategy.update("TEST123", "shipped", Date(), "INVALID")
         }
     }
 
     @Test
     fun testExpectedDeliveryShipmentStrategyInvalidShipmentID() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {
-            strategy.update("INVALID", "shipped", Date(1652712855468), "1652713940874")
+            strategy.update("INVALID", "shipped", Date(), "2025-01-01")
         }
     }
 
     @Test
     fun testExpectedDeliveryShipmentStrategyMissingOtherInfo() {
         val shipmentFactory = ShipmentFactory()
-        ShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
+        WebShipmentTracker.addShipment(shipmentFactory.create("TEST123", "created", "standard"))
 
         val strategy = ExpectedDeliveryShipmentUpdateStrategy()
         assertFailsWith<IllegalArgumentException> {
-            strategy.update("INVALID", "shipped", Date(1652712855468), null)
+            strategy.update("INVALID", "shipped", Date(), null)
         }
     }
 }
